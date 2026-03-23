@@ -1,38 +1,40 @@
+/* page body */
 body {
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #111; /* page background */
+    background-color: #111;
     font-family: Arial, sans-serif;
     position: relative;
 }
 
-/* Top-left nav box */
+/* NAV BOX IN TOP LEFT */
 .top-nav {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    position: fixed; /* force it to top-left corner */
+    top: 20px;
+    left: 20px;
 }
 
 .top-nav a {
     display: inline-block;
-    padding: 10px 15px;
-    background-color: #111; /* same as page background */
-    border-radius: 8px;
+    padding: 10px 20px;
+    background-color: #111; /* same as page */
     color: #cdaaff; /* light purple */
-    font-weight: bold;
     text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px; /* match download button */
     text-shadow: 1px 1px 2px #000; /* matching shadow */
     transition: background-color 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* subtle shadow for depth */
 }
 
 .top-nav a:hover {
     background-color: #222;
 }
 
-/* Main layout */
+/* MAIN LAYOUT */
 .container {
     display: flex;
     align-items: center;
@@ -46,6 +48,7 @@ body {
     gap: 15px;
 }
 
+/* input fields */
 input {
     padding: 10px;
     font-size: 16px;
@@ -56,6 +59,7 @@ input {
     outline: none;
 }
 
+/* the circle */
 #circle {
     width: 250px;
     height: 250px;
@@ -64,6 +68,7 @@ input {
     transition: background 0.3s ease;
 }
 
+/* download button */
 button {
     padding: 10px 20px;
     font-size: 16px;
