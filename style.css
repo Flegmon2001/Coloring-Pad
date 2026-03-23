@@ -1,24 +1,24 @@
-/* Exact styling with circle in the middle */
-
 body {
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(
-        to bottom,
-        #000000 0%,
-        #3a3a3a 50%,
-        #888888 100%
-    );
+    background-color: #111;
     font-family: Arial, sans-serif;
 }
 
 .container {
     display: flex;
     align-items: center;
-    gap: 40px; /* space between inputs and circle */
+    gap: 40px;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 input {
@@ -37,6 +37,18 @@ input {
     border-radius: 50%;
     background: white;
     transition: background 0.3s ease;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    user-select: none;
+    background-color: #4CAF50;
+    color: white;
+}
+
+button:hover {
+    background-color: #45a049;
 }
