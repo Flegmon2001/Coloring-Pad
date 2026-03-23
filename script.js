@@ -3,8 +3,17 @@ const rightInput = document.getElementById("rightColor");
 const circle = document.getElementById("circle");
 
 function enforceHash(input) {
-    if (!input.value.startsWith("#")) {
-        input.value = "#" + input.value.replace(/^#+/, "");
+    let value = input.value;
+
+    if (!value.startsWith("#")) {
+        const cursorPos = input.selectionStart;
+
+        // Remove any existing # and add one at the start
+        value = "#" + value.replace(/^#+/, "");
+        input.value = value;
+
+        // Fix cursor position so typing feels natural
+        input.setSelectionRange(cursorPos + 1, cursorPos + 1);
     }
 }
 
