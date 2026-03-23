@@ -1,4 +1,4 @@
-/* Full CSS file */
+/* Full CSS styling */
 
 body {
     margin: 0;
@@ -38,4 +38,6 @@ input {
     border-radius: 50%;
     background: white;
     transition: background 0.3s ease;
+    cursor: pointer;
+    user-select: none;
 }
