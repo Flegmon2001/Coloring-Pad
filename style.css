@@ -1,4 +1,4 @@
-/* Styling wie vorher: input - circle - input */
+/* Exact styling for input - circle - input layout */
 
 body {
     margin: 0;
@@ -18,7 +18,7 @@ body {
 .container {
     display: flex;
     align-items: center;
-    gap: 40px; /* Abstand zwischen Inputs und Kreis */
+    gap: 40px; /* space between inputs and circle */
 }
 
 input {
