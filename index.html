@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gradient Circle Saver</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Color Circle</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div class="container">
-    <input id="leftColor" placeholder="#000000">
-    <div id="circle"></div>
-    <input id="rightColor" placeholder="#555555">
+    <input type="text" id="leftColor" placeholder="#ff0000">
+
+    <div class="middle">
+        <div id="circle"></div>
+        <button id="downloadBtn">Download</button>
+    </div>
+
+    <input type="text" id="rightColor" placeholder="#0000ff">
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>
