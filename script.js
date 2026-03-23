@@ -2,11 +2,19 @@ const leftInput = document.getElementById("leftColor");
 const rightInput = document.getElementById("rightColor");
 const circle = document.getElementById("circle");
 
+function enforceHash(input) {
+    if (!input.value.startsWith("#")) {
+        input.value = "#" + input.value.replace(/^#+/, "");
+    }
+}
+
 function updateCircle() {
+    enforceHash(leftInput);
+    enforceHash(rightInput);
+
     let left = leftInput.value.trim();
     let right = rightInput.value.trim();
 
-    // Basic hex validation
     const hexPattern = /^#([0-9A-F]{3}){1,2}$/i;
 
     if (!hexPattern.test(left) || !hexPattern.test(right)) {
@@ -21,5 +29,12 @@ function updateCircle() {
 }
 
 // Update on typing
-leftInput.addEventListener("input", updateCircle);
-rightInput.addEventListener("input", updateCircle);
+leftInput.addEventListener("input", () => {
+    enforceHash(leftInput);
+    updateCircle();
+});
+
+rightInput.addEventListener("input", () => {
+    enforceHash(rightInput);
+    updateCircle();
+});
