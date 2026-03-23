@@ -44,11 +44,25 @@ function saveCircleAsImage() {
     canvas.height = height;
     const ctx = canvas.getContext("2d");
 
-    const style = getComputedStyle(circle);
-    const bg = style.background;
+    // Create the gradient just like in CSS
+    const left = leftInput.value.startsWith("#") ? leftInput.value : "#" + leftInput.value;
+    const right = rightInput.value.startsWith("#") ? rightInput.value : "#" + rightInput.value;
 
-    // Fill a circle with the current background
-    ctx.fillStyle = bg;
+    const hexPattern = /^#([0-9A-F]{3}){1,2}$/i;
+    if (!hexPattern.test(left) || !hexPattern.test(right)) return;
+
+    let gradient;
+    if (left.toLowerCase() === right.toLowerCase()) {
+        gradient = left;
+        ctx.fillStyle = gradient;
+    } else {
+        gradient = ctx.createLinearGradient(0, 0, width, 0); // horizontal gradient
+        gradient.addColorStop(0, left);
+        gradient.addColorStop(1, right);
+        ctx.fillStyle = gradient;
+    }
+
+    // Draw the circle
     ctx.beginPath();
     ctx.arc(width/2, height/2, width/2, 0, Math.PI*2);
     ctx.fill();
