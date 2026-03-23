@@ -2,21 +2,18 @@ const leftInput = document.getElementById("leftColor");
 const rightInput = document.getElementById("rightColor");
 const circle = document.getElementById("circle");
 
+// Automatically add # if missing
 function enforceHash(input) {
     let value = input.value;
-
     if (!value.startsWith("#")) {
         const cursorPos = input.selectionStart;
-
-        // Remove any existing # and add one at the start
         value = "#" + value.replace(/^#+/, "");
         input.value = value;
-
-        // Fix cursor position so typing feels natural
         input.setSelectionRange(cursorPos + 1, cursorPos + 1);
     }
 }
 
+// Update the circle background
 function updateCircle() {
     enforceHash(leftInput);
     enforceHash(rightInput);
@@ -25,10 +22,7 @@ function updateCircle() {
     let right = rightInput.value.trim();
 
     const hexPattern = /^#([0-9A-F]{3}){1,2}$/i;
-
-    if (!hexPattern.test(left) || !hexPattern.test(right)) {
-        return;
-    }
+    if (!hexPattern.test(left) || !hexPattern.test(right)) return;
 
     if (left.toLowerCase() === right.toLowerCase()) {
         circle.style.background = left;
@@ -38,12 +32,53 @@ function updateCircle() {
 }
 
 // Update on typing
-leftInput.addEventListener("input", () => {
-    enforceHash(leftInput);
-    updateCircle();
+leftInput.addEventListener("input", updateCircle);
+rightInput.addEventListener("input", updateCircle);
+
+// Save circle as PNG
+function saveCircleAsImage() {
+    const width = circle.offsetWidth;
+    const height = circle.offsetHeight;
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+
+    const style = getComputedStyle(circle);
+    const bg = style.background;
+
+    // Fill a circle with the current background
+    ctx.fillStyle = bg;
+    ctx.beginPath();
+    ctx.arc(width/2, height/2, width/2, 0, Math.PI*2);
+    ctx.fill();
+
+    // Trigger download
+    const link = document.createElement("a");
+    link.download = "circle.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+}
+
+// Hold-to-save logic
+let holdTimeout;
+circle.addEventListener("mousedown", () => {
+    holdTimeout = setTimeout(saveCircleAsImage, 1000); // 1 second hold
 });
 
-rightInput.addEventListener("input", () => {
-    enforceHash(rightInput);
-    updateCircle();
+circle.addEventListener("mouseup", () => {
+    clearTimeout(holdTimeout);
+});
+
+circle.addEventListener("mouseleave", () => {
+    clearTimeout(holdTimeout);
+});
+
+// Touch support for mobile
+circle.addEventListener("touchstart", () => {
+    holdTimeout = setTimeout(saveCircleAsImage, 1000);
+});
+
+circle.addEventListener("touchend", () => {
+    clearTimeout(holdTimeout);
 });
