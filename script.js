@@ -6,10 +6,6 @@ function updateCircle() {
     let left = leftInput.value.trim();
     let right = rightInput.value.trim();
 
-    if (!left.contains("#")) {
-        left = "#" + left;
-    }
-
     // Basic hex validation
     const hexPattern = /^#([0-9A-F]{3}){1,2}$/i;
 
