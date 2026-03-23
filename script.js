@@ -3,15 +3,25 @@ const rightInput = document.getElementById("rightColor");
 const circle = document.getElementById("circle");
 const downloadBtn = document.getElementById("downloadBtn");
 
-const hexPattern = /^#([0-9A-F]{3}){1,2}$/i;
+// Match 3 or 6 digit HEX, with optional #
+const hexPattern = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
+
+function formatHex(value) {
+    value = value.trim();
+    if (!value.startsWith("#")) {
+        value = "#" + value;
+    }
+    return value;
+}
 
 function updateCircle() {
     let left = leftInput.value.trim();
     let right = rightInput.value.trim();
 
-    if (!hexPattern.test(left) || !hexPattern.test(right)) {
-        return;
-    }
+    if (!hexPattern.test(left) || !hexPattern.test(right)) return;
+
+    left = formatHex(left);
+    right = formatHex(right);
 
     if (left.toLowerCase() === right.toLowerCase()) {
         circle.style.background = left;
@@ -32,6 +42,9 @@ function Download() {
         return;
     }
 
+    left = formatHex(left);
+    right = formatHex(right);
+
     const canvas = document.createElement("canvas");
     const size = 500;
 
@@ -40,7 +53,6 @@ function Download() {
 
     const ctx = canvas.getContext("2d");
 
-    // Draw circular clip
     ctx.beginPath();
     ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
     ctx.closePath();
@@ -57,7 +69,6 @@ function Download() {
 
     ctx.fillRect(0, 0, size, size);
 
-    // Download image
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
     link.download = "circle.png";
@@ -66,8 +77,7 @@ function Download() {
     document.body.removeChild(link);
 }
 
-// Connect button to download function
 downloadBtn.addEventListener("click", Download);
 
-// Initialize circle on page load
+// Initialize circle
 updateCircle();
