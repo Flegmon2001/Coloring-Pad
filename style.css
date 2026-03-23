@@ -1,10 +1,18 @@
+/* Full CSS file */
+
 body {
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #000000 0%, #3a3a3a 50%, #888888 100%);
+    background: linear-gradient(
+        to bottom,
+        #000000 0%,
+        #222222 40%,
+        #666666 75%,
+        #bbbbbb 100%
+    );
     font-family: Arial, sans-serif;
 }
 
