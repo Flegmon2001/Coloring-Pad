@@ -4,11 +4,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #111;
+    background-color: #111; /* page background */
     font-family: Arial, sans-serif;
     position: relative;
 }
 
+/* Top-left nav box */
 .top-nav {
     position: absolute;
     top: 10px;
@@ -16,19 +17,22 @@ body {
 }
 
 .top-nav a {
-    color: white;
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #111; /* same as page background */
+    border-radius: 8px;
+    color: #cdaaff; /* light purple */
+    font-weight: bold;
     text-decoration: none;
-    font-size: 16px;
-    padding: 8px 12px;
-    background-color: #222;
-    border-radius: 6px;
+    text-shadow: 1px 1px 2px #000; /* matching shadow */
     transition: background-color 0.2s;
 }
 
 .top-nav a:hover {
-    background-color: #444;
+    background-color: #222;
 }
 
+/* Main layout */
 .container {
     display: flex;
     align-items: center;
