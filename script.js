@@ -23,7 +23,7 @@ function updateCircle() {
 leftInput.addEventListener("input", updateCircle);
 rightInput.addEventListener("input", updateCircle);
 
-function onClick("click", () => {
+function Download() {
     let left = leftInput.value.trim();
     let right = rightInput.value.trim();
 
@@ -66,4 +66,4 @@ function onClick("click", () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-});
+};
