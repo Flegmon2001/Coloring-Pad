@@ -27,7 +27,6 @@ function Download() {
     let left = leftInput.value.trim();
     let right = rightInput.value.trim();
 
-    // ✅ Prevent download if invalid
     if (!hexPattern.test(left) || !hexPattern.test(right)) {
         alert("Please enter valid HEX colors like #ff0000");
         return;
@@ -58,12 +57,17 @@ function Download() {
 
     ctx.fillRect(0, 0, size, size);
 
-    // ✅ More reliable download method
+    // Download image
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
     link.download = "circle.png";
-
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-};
+}
+
+// Connect button to download function
+downloadBtn.addEventListener("click", Download);
+
+// Initialize circle on page load
+updateCircle();
