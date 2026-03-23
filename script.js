@@ -3,7 +3,6 @@ const rightInput = document.getElementById("rightColor");
 const circle = document.getElementById("circle");
 const downloadBtn = document.getElementById("downloadBtn");
 
-// Match 3 or 6 digit HEX, with optional #
 const hexPattern = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
 
 function formatHex(value) {
@@ -79,5 +78,4 @@ function Download() {
 
 downloadBtn.addEventListener("click", Download);
 
-// Initialize circle
 updateCircle();
