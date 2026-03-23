@@ -35,7 +35,7 @@ function updateCircle() {
 leftInput.addEventListener("input", updateCircle);
 rightInput.addEventListener("input", updateCircle);
 
-// Save circle as PNG
+// Save circle as PNG (accurate gradient)
 function saveCircleAsImage() {
     const width = circle.offsetWidth;
     const height = circle.offsetHeight;
@@ -44,7 +44,6 @@ function saveCircleAsImage() {
     canvas.height = height;
     const ctx = canvas.getContext("2d");
 
-    // Create the gradient just like in CSS
     const left = leftInput.value.startsWith("#") ? leftInput.value : "#" + leftInput.value;
     const right = rightInput.value.startsWith("#") ? rightInput.value : "#" + rightInput.value;
 
@@ -56,7 +55,7 @@ function saveCircleAsImage() {
         gradient = left;
         ctx.fillStyle = gradient;
     } else {
-        gradient = ctx.createLinearGradient(0, 0, width, 0); // horizontal gradient
+        gradient = ctx.createLinearGradient(0, 0, width, 0); // horizontal
         gradient.addColorStop(0, left);
         gradient.addColorStop(1, right);
         ctx.fillStyle = gradient;
@@ -64,7 +63,7 @@ function saveCircleAsImage() {
 
     // Draw the circle
     ctx.beginPath();
-    ctx.arc(width/2, height/2, width/2, 0, Math.PI*2);
+    ctx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
     ctx.fill();
 
     // Trigger download
@@ -74,25 +73,20 @@ function saveCircleAsImage() {
     link.click();
 }
 
-// Hold-to-save logic
+// Hold-to-save logic (desktop + mobile)
 let holdTimeout;
+
+// Desktop
 circle.addEventListener("mousedown", () => {
-    holdTimeout = setTimeout(saveCircleAsImage, 1000); // 1 second hold
-});
-
-circle.addEventListener("mouseup", () => {
-    clearTimeout(holdTimeout);
-});
-
-circle.addEventListener("mouseleave", () => {
-    clearTimeout(holdTimeout);
-});
-
-// Touch support for mobile
-circle.addEventListener("touchstart", () => {
     holdTimeout = setTimeout(saveCircleAsImage, 1000);
 });
+circle.addEventListener("mouseup", () => clearTimeout(holdTimeout));
+circle.addEventListener("mouseleave", () => clearTimeout(holdTimeout));
 
-circle.addEventListener("touchend", () => {
-    clearTimeout(holdTimeout);
+// Mobile / touch
+circle.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // prevent scrolling
+    holdTimeout = setTimeout(saveCircleAsImage, 1000);
 });
+circle.addEventListener("touchend", () => clearTimeout(holdTimeout));
+circle.addEventListener("touchcancel", () => clearTimeout(holdTimeout));
