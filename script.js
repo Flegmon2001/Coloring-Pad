@@ -75,7 +75,7 @@ function Download() {
     ctx.fillRect(0, 0, size, size);
 
     // Clean filename (no #)
-    const fileName = "(" + cleanHexForFile(left) + ") -> (" + cleanHexForFile(right) + ")" + ".png";
+    const fileName = `${cleanHexForFile(left)}_to_${cleanHexForFile(right)}.png`;
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
