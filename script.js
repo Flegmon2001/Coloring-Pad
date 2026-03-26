@@ -13,6 +13,10 @@ function formatHex(value) {
     return value;
 }
 
+function cleanHexForFile(value) {
+    return value.replace("#", ""); // remove # for filename
+}
+
 function updateCircle() {
     let left = leftInput.value.trim();
     let right = rightInput.value.trim();
@@ -37,7 +41,7 @@ function Download() {
     let right = rightInput.value.trim();
 
     if (!hexPattern.test(left) || !hexPattern.test(right)) {
-        alert("Please enter valid HEX colors like #ff0000");
+        alert("Please enter valid HEX colors like ff0000");
         return;
     }
 
@@ -52,11 +56,13 @@ function Download() {
 
     const ctx = canvas.getContext("2d");
 
+    // Clip to circle
     ctx.beginPath();
     ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
     ctx.closePath();
     ctx.clip();
 
+    // Fill color / gradient
     if (left.toLowerCase() === right.toLowerCase()) {
         ctx.fillStyle = left;
     } else {
@@ -68,9 +74,13 @@ function Download() {
 
     ctx.fillRect(0, 0, size, size);
 
+    // Clean filename (no #)
+    const fileName = cleanHexForFile(left) + "_to_" + cleanHexForFile(right) + ".png";
+
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = left.value + "_to_" + right.value + ".png";
+    link.download = fileName;
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -78,4 +88,5 @@ function Download() {
 
 downloadBtn.addEventListener("click", Download);
 
+// Initialize
 updateCircle();
