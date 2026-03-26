@@ -70,7 +70,7 @@ function Download() {
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = "circle.png";
+    link.download = (left.trim() + " -> " right.trim() + ".png");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
